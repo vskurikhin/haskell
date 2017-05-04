@@ -23,7 +23,6 @@ import Data.Tuple (swap)
 newtype Writer w a = Writer { runWriter :: (a, w) }
 newtype WriterT w m a = WriterT { runWriterT :: m (a, w) }
 
-
 {-
 writer :: Monad m => (a, w) -> WriterT w m a
 writer = WriterT
