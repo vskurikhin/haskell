@@ -70,6 +70,16 @@ instance (Monad m) => Monad (ExceptT e m) where
       Right x -> runExceptT (k x)
   fail = ExceptT . fail
 
+throwE :: Monad m => e -> ExceptT e m a
+throwE = ExceptT . return . Left
+
+catchE :: Monad m => ExceptT e m a -> (e -> ExceptT e' m a) -> ExceptT e' m a
+m `catchE` h = ExceptT $ do
+  a <- runExceptT m
+  case a of
+    Left  l -> runExceptT (h l)
+    Right r -> return (Right r)
+
 --------------------------------------------------------------------------------
 -- vim: syntax=haskell:fileencoding=utf-8:ff=unix:tw=78:ts=4:sw=4:sts=4:et
 {-EOF-}
