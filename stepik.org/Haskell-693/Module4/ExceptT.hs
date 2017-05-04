@@ -15,6 +15,7 @@
 
 module ExceptT where
 
+import MonadTrans
 import Control.Applicative (liftA2)
 
 newtype Except e a = Except { runExcept :: Either e a }
