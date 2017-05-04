@@ -84,7 +84,6 @@ instance (Monoid w) => MonadTrans (WriterT w) where
     x <- m
     return (x, mempty)
 
-
 {-
  -
 Сдандартный интерфейс для доступа к логу: функции
