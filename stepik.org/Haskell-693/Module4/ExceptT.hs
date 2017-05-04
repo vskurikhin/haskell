@@ -71,6 +71,12 @@ instance (Monad m) => Monad (ExceptT e m) where
       Right x -> runExceptT (k x)
   fail = ExceptT . fail
 
+
+instance MonadTrans (ExceptT e) where
+  lift :: Functor m => m a -> ExceptT e m a
+  lift = ExceptT . fmap Right
+
+
 throwE :: Monad m => e -> ExceptT e m a
 throwE = ExceptT . return . Left
 
